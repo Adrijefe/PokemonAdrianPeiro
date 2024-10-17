@@ -12,29 +12,23 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.pokemonadrianpeiro.databinding.FragmentFirstBinding;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class FirstFragment extends Fragment {
 
     private FragmentFirstBinding binding;
-    ArrayList<String> pokemon;
+    ArrayList<Pokemon> pokemons;
 
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        pokemon = new ArrayList<>();
-        pokemon.add("Alvaricoque");
-        pokemon.add("JoseVi");
-
 
         binding = FragmentFirstBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -43,8 +37,8 @@ public class FirstFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                getContext(), R.layout.pokemon_list_item, R.id.textPokemonName, pokemon);
+        ArrayAdapter<Pokemon> adapter = new PokemonAdapter(
+                getContext(), R.layout.pokemon_list_item,pokemons);
         binding.listaPokemons.setAdapter(adapter);
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -52,7 +46,7 @@ public class FirstFragment extends Fragment {
             ArrayList<Pokemon> pokemons = PokeAPI.buscar();
             getActivity().runOnUiThread(() -> {
                 for (Pokemon p : pokemons) {
-                    pokemon.add(p.getName());
+                    this.pokemons.add(p);
                 }
                 adapter.notifyDataSetChanged();
             });

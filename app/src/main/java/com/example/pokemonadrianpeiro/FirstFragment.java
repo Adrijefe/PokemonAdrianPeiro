@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.pokemonadrianpeiro.databinding.FragmentFirstBinding;
 
@@ -29,6 +30,7 @@ public class FirstFragment extends Fragment {
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
+        pokemons = new ArrayList<>();
 
         binding = FragmentFirstBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -39,6 +41,7 @@ public class FirstFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ArrayAdapter<Pokemon> adapter = new PokemonAdapter(
                 getContext(), R.layout.pokemon_list_item,pokemons);
+
         binding.listaPokemons.setAdapter(adapter);
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -51,6 +54,18 @@ public class FirstFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             });
         });
+
+        binding.listaPokemons.setOnItemClickListener((parent, view1,position ,id )->{
+
+            Pokemon pokemons = adapter.getItem(position);
+            Bundle args = new Bundle();
+            args.putSerializable("Pokemon",pokemons);
+
+            NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_pokemonsDetailsFragment2,args);
+        });
+
+
+
 
     }
 

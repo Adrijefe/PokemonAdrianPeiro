@@ -4,26 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PokemonsDetailsFragment">
+    tools:context=".PokemonsDetailsFragment"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="-56dp">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/txtPokemonsNamesDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="28dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toEndOf="@+id/imgPokemonSpriteDetails"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imgPokemonSpriteDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/txtPokemonsSpeciesDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/txtPokemonsNamesDetails"
+        app:layout_constraintStart_toStartOf="@+id/txtPokemonsNamesDetails"
+        app:layout_constraintTop_toBottomOf="@+id/txtPokemonsNamesDetails"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/txtPokemonSpriteDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="@+id/txtPokemonsSpeciesDetails"
+        app:layout_constraintStart_toStartOf="@+id/txtPokemonsSpeciesDetails"
+        app:layout_constraintTop_toBottomOf="@+id/txtPokemonsSpeciesDetails"
+        tools:ignore="MissingConstraints" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="action_refresh" type="id" />
+    <item name="Action_FirstFragment_To_PokemonDetailsFragmnet" type="id" />
+    <item name="Action_FirstFragment_To_PokemonDetailsFragment" type="id" />
+    <item name="Action_FirstFragment_To_pokemonDetailsFragment" type="id" />
+    <item name="Action_FirstFragment_To_pokemonsDetailsFragment" type="id" />
+    <item name="action_FirstFragment_to_pokemonsDetailsFragment" type="id" />
+    <item name="Action_FirstFragment_To_PokemonsDetailsFragment" type="id" />
 </resources>

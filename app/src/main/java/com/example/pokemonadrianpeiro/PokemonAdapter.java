@@ -1,6 +1,7 @@
 package com.example.pokemonadrianpeiro;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,9 +47,6 @@ LayoutInflater inflater;
             convertView = inflater.inflate(R.layout.pokemon_list_item,parent,false);
 
         }
-
-
-
         return convertView;
     }
 
@@ -56,4 +54,5 @@ LayoutInflater inflater;
 
         super(context, resource, objects);
     }
+
 }

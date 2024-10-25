@@ -56,9 +56,7 @@ public class PokemonsDetailsFragment extends Fragment {
         binding.txtPokemonsNamesDetails.setText(pokemon.getName());
         binding.txtPokemonsSpeciesDetails.setText(pokemon.getSpecies());
        binding.txtPokemonSpriteDetails.setText(pokemon.getSprite());
-        Glide.with(getContext())
-                .load(pokemon.getSprite())
-                .into(binding.imgPokemonSpriteDetails);
+        Glide.with(getContext()).load(pokemon.getSprite()).into(binding.imgPokemonSpriteDetails);
     }
 
     @Override

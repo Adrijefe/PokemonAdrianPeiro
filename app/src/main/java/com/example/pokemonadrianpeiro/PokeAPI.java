@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class PokeAPI {
     String BASE_URL = "https://pokeapi.co/api/v2/pokemon/ditto";
 
-    String getNames(String name){
+    String getNames(){
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
                 .appendPath("pokemon")

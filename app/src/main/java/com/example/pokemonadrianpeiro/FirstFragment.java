@@ -13,11 +13,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
 
 import com.example.pokemonadrianpeiro.databinding.FragmentFirstBinding;
@@ -45,10 +43,16 @@ public class FirstFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setHasOptionsMenu(true);
+        //refresh();
+
+
+    }
+
+    private void refresh() {
         ArrayAdapter<Pokemon> adapter = new PokemonAdapter(
                 getContext(), R.layout.pokemon_list_item,pokemons);
 
-        setHasOptionsMenu(true);
 
         binding.listaPokemons.setAdapter(adapter);
 
@@ -57,7 +61,7 @@ public class FirstFragment extends Fragment {
             ArrayList<Pokemon> pokemons = PokeAPI.buscar();
             getActivity().runOnUiThread(() -> {
                 for (Pokemon p : pokemons) {
-                    this.pokemons.add(p);
+                    adapter.add(p);
                 }
                 adapter.notifyDataSetChanged();
             });
@@ -71,11 +75,6 @@ public class FirstFragment extends Fragment {
 
             NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_pokemonsDetailsFragment2,args);
         });
-
-
-
-
-
     }
 
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
@@ -84,37 +83,23 @@ public class FirstFragment extends Fragment {
 
         inflater.inflate(R.menu.menu_main, menu);
     }
-    public void refresh() {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String species = preferences.getString("species","");
-
-        Toast.makeText(null, "", Toast.LENGTH_SHORT).show();
-
-        executor.execute(() -> {
-            PokeAPI api = new PokeAPI();
-            String result = api.getNames("a");
-
-            Log.d("DEBUG", result);
-        });
-    }
 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_refresh) {
+        if (id == R.id.Refresh) {
             Toast.makeText(getContext(), "Click", Toast.LENGTH_SHORT).show();
             Log.d("XXXMenu", "CLick");
+            refresh();
         }
-        if (id == R.id.action_settings){
+        if (id == R.id.settings){
+            Log.d("XXX", "Settings");
             Intent i = new Intent(getContext(),SettingsActivity.class);
             startActivity(i);
             return true;
-        }else if (id == R.id.action_refresh){
-            refresh();
         }
 
 

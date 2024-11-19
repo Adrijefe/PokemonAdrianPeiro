@@ -45,7 +45,7 @@ public class PokeAPI {
 
                 Log.d("DEBUG", "JSON de " + name + ": " + pokemonDetails);
 
-                Double id = pokemonDetails.getDouble("id");
+                Integer id = pokemonDetails.getInt("id");
                 String species = pokemonDetails.getJSONObject("species").getString("name");
                 Integer weight = pokemonDetails.getInt("weight");
                 JSONObject spriteObject = pokemonDetails.getJSONObject("sprites");

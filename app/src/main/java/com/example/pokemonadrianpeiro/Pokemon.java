@@ -1,15 +1,21 @@
 package com.example.pokemonadrianpeiro;
 
-import java.io.Serializable;
 
+
+import androidx.room.Entity;
+    import androidx.room.PrimaryKey;
+
+import java.io.Serializable;
+@Entity
 public class Pokemon implements Serializable {
-    private double id;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String name;
     private String species;
     private Integer weight;
     private String sprite;
 
-    public Pokemon(double id, String name, String species, Integer weight, String sprite) {
+    public Pokemon(int id, String name, String species, Integer weight, String sprite) {
         this.id = id;
         this.name = name;
         this.species = species;
@@ -17,11 +23,11 @@ public class Pokemon implements Serializable {
         this.sprite = sprite;
     }
 
-    public double getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(double id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -1,7 +1,6 @@
 package com.example.pokemonadrianpeiro;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,8 +14,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.preference.PreferenceManager;
 
 import com.example.pokemonadrianpeiro.databinding.FragmentFirstBinding;
 
@@ -28,18 +27,41 @@ public class FirstFragment extends Fragment {
 
     private FragmentFirstBinding binding;
     ArrayList<Pokemon> pokemons;
+    ArrayAdapter<Pokemon> adapter;
+    PokemonViewModel model;
 
     @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = FragmentFirstBinding.inflate(inflater);
+        View view = binding.getRoot();
+
         pokemons = new ArrayList<>();
+        adapter = new PokemonAdapter(
+                getContext(),
+                R.layout.pokemon_list_item, pokemons
+        );
 
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
-        return binding.getRoot();
+        binding.listaPokemons.setAdapter(adapter);
+        binding.listaPokemons.setOnItemClickListener((adapterView, view1, i, l) -> {
+            Pokemon pokemons = adapter.getItem(i);
+            Bundle navegacion = new Bundle();
+            navegacion.putSerializable("Pokemon", pokemons);
+            NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_pokemonsDetailsFragment2,navegacion);
 
+
+        });
+
+        model = new ViewModelProvider(this).get(PokemonViewModel.class);
+        model.getPokemons().observe(getViewLifecycleOwner(), pokemons -> {
+            adapter.clear();
+            adapter.addAll(pokemons);
+        });
+
+        return view;
     }
+
+
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -50,6 +72,7 @@ public class FirstFragment extends Fragment {
     }
 
     private void refresh() {
+        model.reload();
         ArrayAdapter<Pokemon> adapter = new PokemonAdapter(
                 getContext(), R.layout.pokemon_list_item,pokemons);
 
